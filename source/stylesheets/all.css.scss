@@ -1,0 +1,31 @@
+
+@import "bootstrap";
+
+
+h1 {
+  @extend .text-center;
+  margin: 48px 0;
+  font-weight: bold;
+}
+
+.man {
+  margin: 0 auto;
+  width: 333px;
+  height: 531px;
+  background: image-url('flash_bg.png');
+  position: relative;
+}
+
+.flash {
+  background: image-url('flash_on.png');
+  position: absolute;
+  left: 79px; top: 35px;
+  width: image-width('flash_on.png');
+  height: image-height('flash_on.png');
+}
+
+.flash.off { opacity: 0; }
+
+
+
+

@@ -23,7 +23,8 @@
     "jquery-ui-touch-punch": "furf/jquery-ui-touch-punch",
     "angular-mocks": "~1.2.12",
     "angular-touch": "~1.2.12",
-    "modernizr": "~2.7.1"
+    "modernizr": "~2.7.1",
+    "goangular": "~3.2.1"
   },
   "resolutions": {
     "angular": "~1.2.12"

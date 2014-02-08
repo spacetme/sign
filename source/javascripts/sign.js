@@ -1,7 +1,9 @@
 
 
+/*global _*/
+
 angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'sign.remote'])
-.controller('MainController', function($scope) {
+.controller('MainController', function($scope, Remote) {
 
   $scope.self = {
 
@@ -21,6 +23,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
   }
 
+  $scope.remote = new Remote($scope)
+
   $scope.main = { page: 'remote' }
   
   $scope.settings = $scope.self
@@ -30,14 +34,14 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     $scope.self.height = h
   }
 
-  $scope.previewSize = function() {
+  $scope.previewSize = function(settings) {
     var w = $scope.self.width
       , h = $scope.self.height
     var size = Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2))
     var scale = 0.2 + 0.7 * Math.exp(size / -500)
     return {
-      width: $scope.self.width * scale,
-      height: $scope.self.height * scale
+      width: settings.width * scale,
+      height: settings.height * scale
     }
   }
 
@@ -133,60 +137,17 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   }
 
 })
-.controller('RemoteController', function($scope, remote) {
+.controller('RemoteController', function($scope, Remote) {
 
-  $scope.remote = remote
-
+  $scope.clients = $scope.remote.clients
 
   $scope.clientPreviewSize = function(client) {
+    var scale = 1/12 + (1/8 - 1/12) * Math.min(1, Math.max(0, 1 + ($scope.self.width - 720) / 360))
     return {
-      width: client.settings.width / 8,
-      height: client.settings.height / 8,
+      width: client.settings.width * scale,
+      height: client.settings.height * scale,
     }
   }
-
-  $scope.clients = [
-    {
-      id: 'abcdef',
-      settings: {
-        content: 'text',
-        text: 'I am A',
-
-        timeMode: 'clock',
-
-        flash: true,
-        flashRate: 16,
-        flashSequence: [1, 0],
-
-        width: 1280,
-        height: 720,
-
-        display: false,
-      }
-    },
-    {
-      id: 'self',
-      settings: $scope.self
-    },
-    {
-      id: 'ghijkl',
-      settings: {
-        content: 'text',
-        text: 'What is this?',
-
-        timeMode: 'clock',
-
-        flash: true,
-        flashRate: 15,
-        flashSequence: [1, 0],
-
-        width: 768,
-        height: 1024,
-
-        display: false,
-      }
-    }
-  ]
   
 })
 .controller('RemoteConnectController', function($scope) {
@@ -213,10 +174,18 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 .controller('RemoteSettingsController', function($scope) {
 
   $scope.settings = null
+  $scope.target = null
 
   $scope.edit = function(client) {
     $scope.settings = JSON.parse(JSON.stringify(client.settings))
     $scope.target = client.id
+  }
+
+  $scope.save = function() {
+    var item = _.find($scope.clients, { id: $scope.target })
+    if (item) {
+      _.assign(item.settings, $scope.settings)
+    }
   }
 
 })

@@ -1,4 +1,5 @@
 
+//= require lodash/dist/lodash
 //= require jquery/jquery
 //= require jquery-ui/ui/jquery.ui.core.js
 //= require jquery-ui/ui/jquery.ui.widget.js

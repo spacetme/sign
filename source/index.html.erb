@@ -4,6 +4,10 @@ title: Flashing Sign
 
 <div ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
 
+<% Dir[File.join root, 'source', 'templates', '*.html'].each do |f| %>
+  <%= ng_template File.basename('settings', '.html') %>
+<% end %>
+
 <div class="main" ng-show="!self.display">
   <ul class="tabs-bar">
     <li ng-class="{ active: main.page == 'settings' }"><a href="javascript://" ng-click="main.page = 'settings'">Settings</a></li>
@@ -12,28 +16,29 @@ title: Flashing Sign
   </ul>
   <div class="content" ng-controller="SettingsController" ng-if="main.page == 'settings'">
 
-    <ng-include src="'templates/settings.html'"></ng-include>
-
-    <div class="setting-section" ng-if="!self.display">
-      <div class="container">
-        <h2>Preview</h2>
-        <div sign-display="settings" ng-click="self.display = true" ng-style="previewSize()" class="preview-container"></div>
-      </div>
-    </div>
+    <ng-include src="'/templates/settings.html'"></ng-include>
 
   </div>
   <div class="content" ng-if="main.page == 'remote'" ng-controller="RemoteController">
-    <div ng-controller="RemoteSettingsController">
+    <div ng-if="remote.connected" ng-controller="RemoteSettingsController">
 
       <div class="client-thumbnails">
-        <div ng-repeat="client in clients" class="client-thumbnail" ng-click="edit(client)">
+        <div ng-repeat="client in clients"
+            ng-class="{ 'client-thumbnail': true, 'active': target == client.id }"
+            ng-click="edit(client)">
           <div sign-display="client.settings" ng-style="clientPreviewSize(client)" class="client-preview-container"></div>
           <h3>{{client.id}}</h3>
+          <span class="nub-container"><span class="nub"></span></span>
         </div>
       </div>
 
       <div ng-if="!!settings">
-        <ng-include src="'templates/settings.html'"></ng-include>
+        <ng-include src="'/templates/settings.html'"></ng-include>
+        <div class="setting-section" ng-if="!self.display">
+          <div class="container save-button-container">
+            <button class="btn btn-primary btn-lg btn-block" ng-click="save()">Save Settings</button>
+          </div>
+        </div>
       </div>
 
     </div>

@@ -50,6 +50,12 @@ activate :livereload
 #   end
 # end
 
+helpers do
+  def ng_template(name)
+    "<script type='text/ng-template' id='/templates/#{name}.html'>#{File.read(File.join root, "source", "templates", "#{name}.html")}</script>"
+  end
+end
+
 set :css_dir, 'stylesheets'
 
 set :js_dir, 'javascripts'

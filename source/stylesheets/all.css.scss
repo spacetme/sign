@@ -61,8 +61,22 @@ $tab-bar-height: 44px;
   }
 }
 
+@mixin nub($background, $color) {
+  .nub-container {
+    display: block;
+    height: 12px;
+  }
+  .nub {
+    display: inline-block;
+    border-color: $background $background $color;
+    border-style: solid;
+    border-width: 0 12px 12px;
+    visibility: hidden;
+  }
+}
 .content-choice {
   @include inline-block-list;
+  @include nub($body-bg, #454443);
   text-align: center;
   li {
     margin: 0 8px;
@@ -83,17 +97,6 @@ $tab-bar-height: 44px;
     font: bold 25px Helvetica, sans-serif;
     line-height: 72px;
     color: white;
-  }
-  .nub-container {
-    display: block;
-    height: 12px;
-  }
-  .nub {
-    display: inline-block;
-    border-color: $body-bg $body-bg #454443;
-    border-style: solid;
-    border-width: 0 12px 12px;
-    visibility: hidden;
   }
   li.active {
     a {
@@ -127,7 +130,6 @@ $tab-bar-height: 44px;
   padding-top: 11px;
 }
 
-
 .display {
   position: absolute;
   top: 0;
@@ -145,8 +147,8 @@ $tab-bar-height: 44px;
   line-height: 1;
 }
 
-
 .preview-container {
+  cursor: pointer;
   position: relative;
   width: 256px;
   height: 144px;
@@ -163,6 +165,8 @@ $tab-bar-height: 44px;
   bottom: 0;
   left: 0;
   z-index: 10001;
+  background: black;
+  cursor: none;
 }
 
 .seizure-warning {
@@ -189,21 +193,8 @@ input.room-id {
 
 .client-thumbnails {
   background: #252423 linear-gradient($body-bg, #353433);
-  padding: 24px 12px;
+  padding: 24px 12px 0;
   text-align: center;
-}
-
-.client-thumbnail {
-  display: inline-block;
-  vertical-align: bottom;
-  margin: 0 8px;
-  h3 {
-    font: 12px Helvetica, sans-serif;
-    text-align: center;
-    margin: 4px 0 0;
-    position: relative;
-    color: #8b8685;
-  }
 }
 
 .client-preview-container {
@@ -213,7 +204,38 @@ input.room-id {
   background: black;
   @include box-sizing(content-box);
   margin: 0 auto;
-  border: 4px solid #656463;
+  border: 4px solid #454443;
   box-shadow: 0 1px 7px black;
+}
+
+.client-thumbnail {
+  @include nub(transparent, $body-bg);
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 0 8px;
+  cursor: pointer;
+  h3 {
+    font: 12px Helvetica, sans-serif;
+    text-align: center;
+    margin: 4px 0 12px;
+    position: relative;
+    color: #8b8685;
+  }
+  &.active {
+    .client-preview-container {
+      border-color: #8b8685;
+    }
+    h3 {
+      font-weight: bold;
+      color: white;
+    }
+    .nub {
+      visibility: visible;
+    }
+  }
+}
+
+.save-button-container {
+  padding-top: 1em;
 }
 

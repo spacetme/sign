@@ -6,24 +6,67 @@
  */
 
 angular.module('sign.remote', [])
-.service('remote', function($q) {
+.service('Remote', function($q) {
 
-  var remote = { }
-  var connection
+  return function Remote(scope) {
 
-  remote.connected = false
-  remote.connecting = false
-  remote.connect = function(room) {
-    remote.connecting = true
-    return $q.when(goinstant.connect('https://goinstant.net/f296a960c64f/staticshowdown', { room: room }))
-      .then(function() {
-        remote.connected = true
+    var remote = { }
+    var connection
+    var room
+    var clients
+
+    remote.connected = false
+    remote.connecting = false
+    remote.clients = [ ]
+
+    remote.connect = function(roomName) {
+      remote.connecting = true
+      return $q.when(goinstant.connect('https://goinstant.net/f296a960c64f/staticshowdown', { room: roomName }))
+        .then(function(result) {
+          connection = result.connection
+          room = result.rooms[0]
+          remote.connected = true
+        })
+        .then(function() {
+          return room.self().key('stuff').set({ wow: 'doge', such: 'io' })
+        })
+        .then(function() {
+          setup()
+        })
+        .finally(function(e) {
+          remote.connecting = false
+        })
+    }
+
+    function setup() {
+
+      var users = null
+      var clients = null
+
+      watch(room.users, function(result) {
+        users = result
       })
-      .finally(function(e) {
-        remote.connecting = false
+
+      watch(room.key('clients'), function(result) {
+        clients = result
       })
+
+      function watch(key) {
+        var query = key.query({ })
+        query.on('change', function(result) {
+          console.log(result)
+        })
+        query.execute()
+      }
+
+    }
+
+    return remote
+
   }
 
-  return remote
-
 })
+
+
+
+

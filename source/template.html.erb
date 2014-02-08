@@ -5,7 +5,7 @@ title: Flashing Sign
 <div ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
 
 <% Dir[File.join root, 'source', 'templates', '*.html'].each do |f| %>
-  <%= ng_template File.basename('settings', '.html') %>
+  <%= ng_template File.basename(f, '.html') %>
 <% end %>
 
 <div class="main" ng-show="!self.display">

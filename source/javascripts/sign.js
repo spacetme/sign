@@ -6,6 +6,7 @@ angular.module('sign', ['ui.slider'])
   $scope.settings = {
     content: 'text',     /* type: text/clock */
     text: 'Attention',   /* (text) text to display */
+    flash: true,
     rate: 100            /* display flashing rate */
   }
 

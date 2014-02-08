@@ -22,7 +22,8 @@
     "angular-ui-slider": "angular-ui/ui-slider#5c7ccb37865228681a26f7914f4dd38b08c54d14",
     "jquery-ui-touch-punch": "furf/jquery-ui-touch-punch",
     "angular-mocks": "~1.2.12",
-    "angular-touch": "~1.2.12"
+    "angular-touch": "~1.2.12",
+    "modernizr": "~2.7.1"
   },
   "resolutions": {
     "angular": "~1.2.12"

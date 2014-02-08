@@ -1,11 +1,12 @@
----
 language: ruby
 script: bundle exec middleman build
 deploy:
   provider: divshot
+  local-dir: build
   environment:
     master: development
     staging: staging
     production: production
   skip_cleanup: true
-
+  api_key:
+    secure: HsfkvkDfvQ8yGxX77HQyKP5oRpZxKxyq977yomdxFaOFNKKzCJLXZemEaqwzEB6JkCp/VWGywdJxtzly0gaelxDi/VMp0PuL8tYnj5hVt8xSJgCO/+17+nbsVJnZJVZiLzQr4fL86YyFSJyhS+t0dnY+I/aILgsIwguY62UoJs0=

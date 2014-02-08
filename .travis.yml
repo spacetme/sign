@@ -2,7 +2,6 @@ language: ruby
 script: bundle exec middleman build
 deploy:
   provider: divshot
-  local-dir: build
   environment:
     master: development
     staging: staging

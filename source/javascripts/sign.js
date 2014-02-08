@@ -155,7 +155,7 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     } else if (count > 1) {
       return $sce.trustAsHtml('There are <strong>' + count + '</strong> connected clients.')
     } else {
-      return '...'
+      return $sce.trustAsHtml('...')
     }
   }
 

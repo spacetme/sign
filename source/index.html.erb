@@ -38,7 +38,7 @@ title: Flashing Sign
             ng-class="{ 'client-thumbnail': true, 'active': target == client.id, 'displaying': client.settings.display }"
             ng-click="edit(client)">
           <div sign-display="client.settings" ng-style="clientPreviewSize(client)" class="client-preview-container"></div>
-          <h3>{{client.id}}</h3>
+          <h3 ng-show="false">{{client.id}}</h3>
           <span class="nub-container"><span class="nub"></span></span>
         </div>
 

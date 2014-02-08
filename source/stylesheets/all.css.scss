@@ -187,4 +187,33 @@ input.room-id {
   text-align: center;
 }
 
+.client-thumbnails {
+  background: #252423 linear-gradient($body-bg, #353433);
+  padding: 24px 12px;
+  text-align: center;
+}
+
+.client-thumbnail {
+  display: inline-block;
+  vertical-align: bottom;
+  margin: 0 8px;
+  h3 {
+    font: 12px Helvetica, sans-serif;
+    text-align: center;
+    margin: 4px 0 0;
+    position: relative;
+    color: #8b8685;
+  }
+}
+
+.client-preview-container {
+  position: relative;
+  width: 256px;
+  height: 144px;
+  background: black;
+  @include box-sizing(content-box);
+  margin: 0 auto;
+  border: 4px solid #656463;
+  box-shadow: 0 1px 7px black;
+}
 

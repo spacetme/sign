@@ -1,0 +1,65 @@
+
+    <div class="setting-section">
+      <div class="container">
+        <h2>Content</h2>
+        <ul class="content-choice">
+          <li ng-class="{ active: settings.content == 'text' }"
+            ><a href="javascript://spacet.me" ng-click="settings.content = 'text'"
+              ><span class="demo">Hello</span>Arbitary Text</a><span class="nub-container"><span class="nub"></span></span></li>
+          <li ng-class="{ active: settings.content == 'time' }"
+            ><a href="javascript://spacet.me" ng-click="settings.content = 'time'"
+              ><span class="demo">12:34</span>Time</a><span class="nub-container"><span class="nub"></span></span></li>
+        </ul>
+        <div class="content-settings" ng-show="settings.content == 'text'">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Text to Display</label>
+              <div class="col-sm-6">
+                <textarea class="form-control" ng-model="settings.text"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="content-settings" ng-show="settings.content == 'time'">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Mode</label>
+              <div class="col-sm-9">
+                <label class="radio-inline"><input type="radio"> Clock</label>
+                <label class="radio-inline"><input type="radio"> Stopwatch</label>
+                <label class="radio-inline"><input type="radio"> Timer</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-section">
+      <div class="container">
+        <h2>Flashing</h2>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-3">Flash</label>
+            <div class="col-sm-6">
+              <div class="checkbox">
+                <label><input ng-model="settings.flash" type="checkbox">
+                  Turn on flashing to get <em>attention</em>!</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" ng-show="settings.flash">
+            <label class="control-label col-sm-3">Flashing Rate</label>
+            <div class="col-sm-6 ui-slider-container">
+              <div ui-slider min="12" max="900" ng-model="settings.flashRate"></div>
+            </div>
+            <p class="col-sm-1 form-control-static text-right">
+              <strong>{{settings.flashRate}}</strong><span class="text-muted">/minute</span>
+            </p>
+            <div class="seizure-warning col-sm-offset-3 col-sm-6 text-center text-muted" ng-show="settings.flashRate > 180">
+              <a class="text-muted" href="https://en.wikipedia.org/wiki/Photosensitive_epilepsy"><em>This may cause seizures — use at your own risk!</em></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

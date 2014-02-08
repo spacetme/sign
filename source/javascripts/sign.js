@@ -136,6 +136,57 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 .controller('RemoteController', function($scope, remote) {
 
   $scope.remote = remote
+
+
+  $scope.clientPreviewSize = function(client) {
+    return {
+      width: client.settings.width / 8,
+      height: client.settings.height / 8,
+    }
+  }
+
+  $scope.clients = [
+    {
+      id: 'abcdef',
+      settings: {
+        content: 'text',
+        text: 'I am A',
+
+        timeMode: 'clock',
+
+        flash: true,
+        flashRate: 16,
+        flashSequence: [1, 0],
+
+        width: 1280,
+        height: 720,
+
+        display: false,
+      }
+    },
+    {
+      id: 'self',
+      settings: $scope.self
+    },
+    {
+      id: 'ghijkl',
+      settings: {
+        content: 'text',
+        text: 'What is this?',
+
+        timeMode: 'clock',
+
+        flash: true,
+        flashRate: 15,
+        flashSequence: [1, 0],
+
+        width: 768,
+        height: 1024,
+
+        display: false,
+      }
+    }
+  ]
   
 })
 .controller('RemoteConnectController', function($scope) {
@@ -145,6 +196,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   $scope.joinRoom = function() {
     if ($scope.roomId) $scope.remote.connect($scope.roomId)
   }
+
+  $scope.remote.connect('lobby')
 
   function getInitalRoomId() {
     return getRandomRoomId()
@@ -156,6 +209,16 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     return id
   }
   
+})
+.controller('RemoteSettingsController', function($scope) {
+
+  $scope.settings = null
+
+  $scope.edit = function(client) {
+    $scope.settings = JSON.parse(JSON.stringify(client.settings))
+    $scope.target = client.id
+  }
+
 })
 
 

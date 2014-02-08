@@ -4,6 +4,11 @@ Flashing Sign
 
 This is an entry to Static Showdown 2014 Hackathon.
 
+__Flashing Sign__ is an __Attention Seeker__. Everyone will notice it.
+
+![Rough Sketch Plan](http://i.imgur.com/NU8iMd7.gif)
+
+
 Background
 ----------
 

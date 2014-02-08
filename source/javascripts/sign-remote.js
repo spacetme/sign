@@ -5,8 +5,8 @@
  * So I rolled my own. :D
  */
 
-angular.module('sign.remote', [])
-.service('Remote', function($q, $parse) {
+angular.module('sign.remote', ['sign.time'])
+.service('Remote', function($q, $parse, timer) {
 
   return function Remote(scope, watchExpression) {
 
@@ -19,6 +19,7 @@ angular.module('sign.remote', [])
 
     remote.connected = false
     remote.connecting = false
+    remote.id = ''
     remote.clients = clients
 
     remote.connect = function(roomName) {
@@ -32,7 +33,13 @@ angular.module('sign.remote', [])
           return synchronize(room.self().key('settings'), watchExpression)
         })
         .then(function() {
+          return room.self().get().then(function(user) {
+            remote.id = user.value.id
+          })
+        })
+        .then(function() {
           setup()
+          // syncTime()
         })
         .then(function() {
           remote.connected = true
@@ -84,6 +91,52 @@ angular.module('sign.remote', [])
             }
           }, true)
         })
+
+    }
+
+    // time synchronization by crowdsourcing
+    // but did not end well
+    function syncTime() {
+
+      var broadcast = room.channel('/timesync/broadcast')
+      var channel = '/timesync/user/' + remote.id
+      var personal = room.channel(channel)
+      var count = 0
+
+      broadcast.on('message', function(msg) {
+        room.channel(msg.channel).message({ time: timer.now(), start: msg.start, sequence: msg.sequence })
+      })
+      
+      function sync() {
+        count += 1
+        var deltas = []
+        var deltaSigma = 0
+        var sequence = count
+        var start = timer.now()
+        broadcast.message({ sequence: sequence, channel: channel, start: start })
+        personal.on('message', receive)
+        function receive(msg) {
+          if (msg.sequence != sequence) return console.log('timesync - wrong sequence')
+          if (msg.start != start) return console.log('timesync - wrong start time')
+          var received = timer.now()
+          var remoteTime = msg.time
+          var localTime = (start + received) / 2
+          var delta = remoteTime - localTime
+          deltaSigma += delta
+          deltas.push(delta)
+          console.log('timesync - received delta ' + delta)
+        }
+        setTimeout(function() {
+          personal.off('message', receive)
+          console.log('timesync - deltas', deltas)
+          if (deltas.length > 0) {
+            timer.shift(deltaSigma / (deltas.length + 1))
+          }
+          setTimeout(sync, 2000)
+        }, 8000)
+      }
+
+      sync()
 
     }
 

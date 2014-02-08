@@ -54,6 +54,9 @@ activate :livereload
 # end
 
 helpers do
+  def offline
+    false
+  end
   def ng_template(name)
     "<script type='text/ng-template' id='/templates/#{name}.html'>#{File.read(File.join root, "source", "templates", "#{name}.html")}</script>"
   end

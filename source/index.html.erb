@@ -2,7 +2,7 @@
 title: Flashing Sign
 ---
 
-<div class="main" ng-app="sign">
+<div class="main" ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
   <ul class="tabs-bar">
     <li class="active"><a href="#">Settings</a></li>
     <li><a href="#">Display</a></li>
@@ -69,6 +69,12 @@ title: Flashing Sign
             </p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="setting-section">
+      <div class="container">
+        <h2>Preview</h2>
       </div>
     </div>
 

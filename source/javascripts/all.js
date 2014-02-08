@@ -11,3 +11,4 @@
 //= require angular-ui-slider/src/slider
 //
 //= require sign
+//= require sign-display

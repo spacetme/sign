@@ -12,3 +12,6 @@ gem "wdm", "~> 0.1.0", :platforms => [:mswin, :mingw]
 
 # Bootstrap the sassy scss
 gem "bootstrap-sass", :require => false
+
+# Minify the rails
+gem "ngmin-rails", :git => 'git://github.com/dtinth/ngmin-rails.git'

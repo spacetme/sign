@@ -49,25 +49,25 @@ title: Flashing Sign
     <div class="setting-section">
       <div class="container">
         <h2>Flashing</h2>
-      </div>
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label class="control-label col-sm-3">Flash</label>
-          <div class="col-sm-6">
-            <div class="checkbox">
-              <label><input ng-model="settings.flash" type="checkbox">
-                Turn on flashing to get <em>attention</em>!</label>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-3">Flash</label>
+            <div class="col-sm-6">
+              <div class="checkbox">
+                <label><input ng-model="settings.flash" type="checkbox">
+                  Turn on flashing to get <em>attention</em>!</label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="form-group" ng-show="settings.flash">
-          <label class="control-label col-sm-3">Flashing Rate</label>
-          <div class="col-sm-6 ui-slider-container">
-            <div ui-slider min="12" max="600" ng-model="settings.rate"></div>
+          <div class="form-group" ng-show="settings.flash">
+            <label class="control-label col-sm-3">Flashing Rate</label>
+            <div class="col-sm-6 ui-slider-container">
+              <div ui-slider min="12" max="600" ng-model="settings.rate"></div>
+            </div>
+            <p class="col-sm-1 form-control-static text-right">
+              <strong>{{settings.rate}}</strong><span class="text-muted">/minute</span>
+            </p>
           </div>
-          <p class="col-sm-1 form-control-static">
-            <strong>{{settings.rate}}</strong><span class="text-muted">/minute</span>
-          </p>
         </div>
       </div>
     </div>

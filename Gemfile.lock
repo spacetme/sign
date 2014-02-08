@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/dtinth/ngmin-rails.git
+  revision: 5b22f9a0acd8d9948f043934ac687edc9e49cdf3
+  specs:
+    ngmin-rails (0.4.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -98,4 +104,5 @@ DEPENDENCIES
   bootstrap-sass
   middleman (~> 3.2.2)
   middleman-livereload (~> 3.1.0)
+  ngmin-rails!
   wdm (~> 0.1.0)

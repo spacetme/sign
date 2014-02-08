@@ -1,3 +1,8 @@
+
+# https://github.com/jasonm/ngmin-rails/pull/9
+require 'ngmin/processor'
+::Sprockets.register_postprocessor 'application/javascript', Ngmin::Processor
+
 ###
 # Compass
 ###

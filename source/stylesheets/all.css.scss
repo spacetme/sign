@@ -45,7 +45,6 @@ $tab-bar-height: 44px;
   }
 }
 
-
 .main {
   margin-top: $tab-bar-height;
 }
@@ -164,6 +163,15 @@ $tab-bar-height: 44px;
   bottom: 0;
   left: 0;
   z-index: 10001;
+}
+
+.seizure-warning {
+  margin-top: 6px;
+}
+
+.flashing .display {
+  background: white;
+  color: black;
 }
 
 

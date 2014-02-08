@@ -4,10 +4,10 @@ title: Flashing Sign
 
 <div ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
 
-<div class="main" ng-show="!settings.display">
+<div class="main" ng-show="!self.display">
   <ul class="tabs-bar">
     <li class="active"><a href="javascript://">Settings</a></li>
-    <li><a href="javascript://" ng-click="settings.display = true">Display</a></li>
+    <li><a href="javascript://" ng-click="self.display = true">Display</a></li>
     <li><a href="javascript://">Remote (soon)</a></li>
   </ul>
   <div class="content" ng-controller="SettingsController">
@@ -64,27 +64,30 @@ title: Flashing Sign
           <div class="form-group" ng-show="settings.flash">
             <label class="control-label col-sm-3">Flashing Rate</label>
             <div class="col-sm-6 ui-slider-container">
-              <div ui-slider min="12" max="600" ng-model="settings.rate"></div>
+              <div ui-slider min="12" max="900" ng-model="settings.flashRate"></div>
             </div>
             <p class="col-sm-1 form-control-static text-right">
-              <strong>{{settings.rate}}</strong><span class="text-muted">/minute</span>
+              <strong>{{settings.flashRate}}</strong><span class="text-muted">/minute</span>
             </p>
+            <div class="seizure-warning col-sm-offset-3 col-sm-6 text-center text-muted" ng-show="settings.flashRate > 180">
+              <a class="text-muted" href="https://en.wikipedia.org/wiki/Photosensitive_epilepsy"><em>This may cause seizures — use at your own risk!</em></a>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="setting-section" ng-if="!display">
+    <div class="setting-section" ng-if="!self.display">
       <div class="container">
         <h2>Preview</h2>
-        <div sign-display="settings" ng-style="previewSize()" class="preview-container"></div>
+        <div sign-display="settings" ng-click="self.display = true" ng-style="previewSize()" class="preview-container"></div>
       </div>
     </div>
 
   </div>
 </div>
 
-<div ng-if="!!settings.display" ng-click="settings.display = false">
+<div ng-if="!!self.display" ng-click="self.display = false">
   <div sign-display="settings" class="the-sign"></div>
 </div>
 

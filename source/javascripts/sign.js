@@ -6,9 +6,10 @@ angular.module('sign', ['ui.slider', 'sign.display', 'ngTouch'])
   $scope.self = {
 
     content: 'text',     /* type: text/clock */
-    text: 'Attention',   /* (text) text to display */
+    text: '<b>Flashing\nSign</b>',   /* (text) text to display */
     flash: true,
-    rate: 100,           /* display flashing rate */
+    flashRate: 180,         /* display flashing rate */
+    flashSequence: [1, 0],  /* the sequence of the flash pattern */
 
     width: 1280,         /* width of display */
     height: 720,         /* height of display */
@@ -68,18 +69,69 @@ angular.module('sign', ['ui.slider', 'sign.display', 'ngTouch'])
     return $sce.trustAsHtml(settings.text)
   }
 })
-.directive('signDisplay', function($parse, signText) {
+.service('timer', function() {
+  return {
+    now: function() {
+      return new Date().getTime()
+    }
+  }
+})
+.directive('signDisplay', function($parse, signText, timer) {
 
   return {
     link: link,
     scope: { 'settings': '=signDisplay' },
     templateUrl: '/templates/sign-display.html'
   }
-  
+
   function link(scope, element, attrs) {
+
+    var flashTimeout = null
+
+    element.on('$destroy', function() {
+      clearTimeout(flashTimeout)
+    })
+
     scope.text = function() {
       return signText(scope.settings)
     }
+
+    scope.$watch('settings.flash', checkFlash)
+    scope.$watch('settings.flashSequence', checkFlash, true)
+    scope.$watch('settings.flashRate', checkFlash)
+
+    function checkFlash() {
+      var info = getFlashInfo()
+      clearTimeout(flashTimeout)
+      if (info.next) {
+        flashTimeout = setTimeout(function() {
+          element.toggleClass('flashing', !info.flashing)
+          checkFlash()
+        }, info.next)
+      } else {
+        element.toggleClass('flashing', !!info.flashing)
+      }
+    }
+
+    function getFlashInfo() {
+
+      var settings = scope.settings
+      var now = timer.now()
+      if (!settings.flash) {
+        return { flashing: false, next: null }
+      }
+
+      var period = 60000 / settings.flashRate
+      var periodNumber = Math.floor(now / period)
+      var next = (periodNumber + 1) * period
+      var flashing = settings.flashSequence[periodNumber % settings.flashSequence.length]
+
+      return { flashing: flashing, next: next - now }
+
+    }
+
+    checkFlash()
+
   }
 
 })

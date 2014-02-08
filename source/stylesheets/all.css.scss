@@ -25,6 +25,7 @@ $tab-bar-height: 44px;
   padding-top: 8px;
   padding-left: 24px;
   box-shadow: inset 0 -10px 1px -9px $glow;
+  z-index: 10000;
   li {
     height: $height;
     line-height: $height;
@@ -141,8 +142,29 @@ $tab-bar-height: 44px;
   white-space: pre;
   top: 50%;
   left: 50%;
+  text-align: center;
+  line-height: 1;
 }
 
+
+.preview-container {
+  position: relative;
+  width: 256px;
+  height: 144px;
+  background: black;
+  @include box-sizing(content-box);
+  margin: 0 auto;
+  border: 5px solid #8b8685;
+}
+
+.the-sign {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10001;
+}
 
 
 

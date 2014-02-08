@@ -2,11 +2,13 @@
 title: Flashing Sign
 ---
 
-<div class="main" ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
+<div ng-app="sign" ng-controller="MainController" on-window-resize="onresize(width, height)">
+
+<div class="main" ng-show="!settings.display">
   <ul class="tabs-bar">
-    <li class="active"><a href="#">Settings</a></li>
-    <li><a href="#">Display</a></li>
-    <li><a href="#">Remote (soon)</a></li>
+    <li class="active"><a href="javascript://">Settings</a></li>
+    <li><a href="javascript://" ng-click="settings.display = true">Display</a></li>
+    <li><a href="javascript://">Remote (soon)</a></li>
   </ul>
   <div class="content" ng-controller="SettingsController">
 
@@ -72,13 +74,20 @@ title: Flashing Sign
       </div>
     </div>
 
-    <div class="setting-section">
+    <div class="setting-section" ng-if="!display">
       <div class="container">
         <h2>Preview</h2>
+        <div sign-display="settings" ng-style="previewSize()" class="preview-container"></div>
       </div>
     </div>
 
   </div>
+</div>
+
+<div ng-if="!!settings.display" ng-click="settings.display = false">
+  <div sign-display="settings" class="the-sign"></div>
+</div>
+
 </div>
 
 <%= javascript_include_tag "all" %>

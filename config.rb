@@ -36,7 +36,7 @@
 # activate :automatic_image_sizes
 
 # Reload the browser automatically whenever files change
-# activate :livereload
+activate :livereload
 
 # Methods defined in the helpers block are available in templates
 # helpers do
@@ -50,8 +50,6 @@ set :css_dir, 'stylesheets'
 set :js_dir, 'javascripts'
 
 set :images_dir, 'images'
-
-gem "bootstrap-sass", :require => false
 
 # Build-specific configuration
 configure :build do
@@ -70,4 +68,12 @@ configure :build do
   # Or use a different image path
   # set :http_prefix, "/Content/images/"
 end
+
+# Add vendor folders...
+ready do
+  sprockets.append_path File.join root, 'vendor'
+  sprockets.append_path File.join root, 'bower_components'
+end
+
+
 

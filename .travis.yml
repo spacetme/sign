@@ -1,5 +1,11 @@
 language: ruby
-script: bundle exec middleman build
+node_js:
+  - 0.10
+before_script:
+  - npm install -g bower
+script:
+  - bower install
+  - bundle exec middleman build
 deploy:
   provider: divshot
   environment:

@@ -2,10 +2,37 @@
 title: Flashing Sign
 ---
 
-<h1>Flashing Sign is in the works!</h1>
+<div class="main">
+  <ul class="tabs-bar">
+    <li class="active"><a href="#">Settings</a></li>
+    <li><a href="#">Display</a></li>
+    <li><a href="#">Remote (soon)</a></li>
+  </ul>
+  <div class="content">
 
-<div class="man">
-  <div id="f" class="flash"></div>
+    <div class="setting-section">
+      <div class="container">
+        <h2>Content</h2>
+        <ul class="content-choice">
+          <li class="active"><a href="#"><span class="demo">Hello</span>Arbitary Text</a><span class="nub-container"><span class="nub"></span></span></li>
+          <li><a href="#"><span class="demo">12:34</span>Time</a><span class="nub-container"><span class="nub"></span></span></li>
+        </ul>
+        <div class="content-settings">
+          This is the settings
+        </div>
+      </div>
+    </div>
+
+    <div class="setting-section">
+      <div class="container">
+        <h2>Flashing</h2>
+      </div>
+    </div>
+
+  </div>
 </div>
+
+<%= javascript_include_tag "angular" %>
+<%= javascript_include_tag "all" %>
 
 

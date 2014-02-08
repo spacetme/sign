@@ -9,6 +9,9 @@
 //= require angular/angular
 //= require angular-touch/angular-touch
 //= require angular-ui-slider/src/slider
+//= require goangular/dist/goangular
 //
 //= require sign
 //= require sign-display
+//= require sign-time
+//

@@ -1,13 +1,16 @@
 
 
-angular.module('sign', ['ui.slider', 'sign.display', 'ngTouch'])
+angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'goangular'])
 .controller('MainController', function($scope) {
 
   $scope.self = {
 
-    content: 'text',     /* type: text/clock */
+    content: 'text',     /* type: text/time */
     text: '<b>Flashing\nSign</b>',   /* (text) text to display */
-    flash: true,
+
+    timeMode: 'clock',   /* mode: clock/stopwatch/timer */
+
+    flash: false,
     flashRate: 180,         /* display flashing rate */
     flashSequence: [1, 0],  /* the sequence of the flash pattern */
 
@@ -67,13 +70,6 @@ angular.module('sign', ['ui.slider', 'sign.display', 'ngTouch'])
 .service('signText', function($sce) {
   return function text(settings) {
     return $sce.trustAsHtml(settings.text)
-  }
-})
-.service('timer', function() {
-  return {
-    now: function() {
-      return new Date().getTime()
-    }
   }
 })
 .directive('signDisplay', function($parse, signText, timer) {

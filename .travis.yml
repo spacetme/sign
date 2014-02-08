@@ -2,10 +2,11 @@ language: ruby
 node_js:
   - 0.10
 before_script:
-  - npm install -g bower
+  - npm install -g bower karma
 script:
   - bower install
   - bundle exec middleman build
+  - karma start --single-run
 deploy:
   provider: divshot
   environment:

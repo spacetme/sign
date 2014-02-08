@@ -2,7 +2,7 @@
 title: Flashing Sign
 ---
 
-<div class="main">
+<div class="main" ng-app="sign">
   <ul class="tabs-bar">
     <li class="active"><a href="#">Settings</a></li>
     <li><a href="#">Display</a></li>
@@ -27,6 +27,18 @@ title: Flashing Sign
             </div>
           </div>
         </div>
+        <div class="content-settings">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="control-label col-sm-3">Mode</label>
+              <div class="col-sm-9">
+                <label class="radio-inline"><input type="radio"> Clock</label>
+                <label class="radio-inline"><input type="radio"> Stopwatch</label>
+                <label class="radio-inline"><input type="radio"> Timer</label>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -34,12 +46,19 @@ title: Flashing Sign
       <div class="container">
         <h2>Flashing</h2>
       </div>
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="control-label col-sm-3">Flashing Rate</label>
+          <div class="col-sm-6">
+            <div ui-slider min="12" max="600" ng-model="wtf"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
 </div>
 
-<%= javascript_include_tag "angular" %>
 <%= javascript_include_tag "all" %>
 
 

@@ -15,6 +15,15 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.2.12",
+    "angular-slider": "Venturocket/angular-slider#~0.1.1",
+    "jquery": "~2.1.0",
+    "jquery-ui": "~1.10.3",
+    "angular-ui-slider": "angular-ui/ui-slider#5c7ccb37865228681a26f7914f4dd38b08c54d14",
+    "jquery-ui-touch-punch": "furf/jquery-ui-touch-punch",
+    "angular-mocks": "~1.2.12"
+  },
+  "resolutions": {
     "angular": "~1.2.12"
   }
 }

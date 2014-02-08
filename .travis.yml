@@ -1,0 +1,11 @@
+---
+language: ruby
+script: bundle exec middleman build
+deploy:
+  provider: divshot
+  environment:
+    master: development
+    staging: staging
+    production: production
+  skip_cleanup: true
+

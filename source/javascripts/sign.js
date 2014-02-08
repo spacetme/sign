@@ -1,6 +1,6 @@
 
 
-/*global _*/
+/*global _, angular*/
 
 angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'sign.remote'])
 .controller('MainController', function($scope, Remote) {
@@ -20,12 +20,17 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     height: 720,         /* height of display */
 
     display: false,      /* true if this client is displaying */
+    remote:  false,      /* true if this client is a remote control */
 
   }
 
-  $scope.remote = new Remote($scope)
+  $scope.remote = new Remote($scope, 'self')
 
-  $scope.main = { page: 'remote' }
+  $scope.$watch('main.page == "remote" && !self.display', function(value) {
+    $scope.self.remote = value
+  })
+
+  $scope.main = { page: 'settings' }
   
   $scope.settings = $scope.self
 
@@ -137,9 +142,22 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   }
 
 })
-.controller('RemoteController', function($scope, Remote) {
+.controller('RemoteController', function($scope, $sce) {
 
   $scope.clients = $scope.remote.clients
+
+  $scope.clientCountText = function() {
+    var count = $scope.clients.count - 1
+    if (count === 0) {
+      return $sce.trustAsHtml('There are no connected clients.')
+    } else if (count == 1) {
+      return $sce.trustAsHtml('There is <strong>one</strong> connected client.')
+    } else if (count > 1) {
+      return $sce.trustAsHtml('There are <strong>' + count + '</strong> connected clients.')
+    } else {
+      return '...'
+    }
+  }
 
   $scope.clientPreviewSize = function(client) {
     var scale = 1/12 + (1/8 - 1/12) * Math.min(1, Math.max(0, 1 + ($scope.self.width - 720) / 360))
@@ -158,8 +176,6 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     if ($scope.roomId) $scope.remote.connect($scope.roomId)
   }
 
-  $scope.remote.connect('lobby')
-
   function getInitalRoomId() {
     return getRandomRoomId()
   }
@@ -177,14 +193,15 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   $scope.target = null
 
   $scope.edit = function(client) {
-    $scope.settings = JSON.parse(JSON.stringify(client.settings))
+    $scope.settings = angular.copy(client.settings)
+    $scope.settings.display = true
     $scope.target = client.id
   }
 
   $scope.save = function() {
     var item = _.find($scope.clients, { id: $scope.target })
     if (item) {
-      _.assign(item.settings, $scope.settings)
+      angular.extend(item.settings, $scope.settings)
     }
   }
 

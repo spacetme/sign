@@ -45,8 +45,18 @@ $tab-bar-height: 44px;
   }
 }
 
+.room-info {
+  font-weight: normal;
+}
+
 .main {
   margin-top: $tab-bar-height;
+}
+
+.footer {
+  @extend .text-center;
+  @extend .text-muted;
+  padding: 24px 0 32px;
 }
 
 
@@ -208,12 +218,27 @@ input.room-id {
   box-shadow: 0 1px 7px black;
 }
 
+.remote-instructions {
+  @extend .text-center;
+  @extend .text-muted;
+  padding: 18px 0 32px;
+  color: #ccc;
+  h3 {
+    color: #eee;
+    margin-top: 0;
+  }
+}
+
 .client-thumbnail {
   @include nub(transparent, $body-bg);
   display: inline-block;
   vertical-align: bottom;
   margin: 0 8px;
   cursor: pointer;
+  opacity: 0.5;
+  &.displaying {
+    opacity: 1;
+  }
   h3 {
     font: 12px Helvetica, sans-serif;
     text-align: center;

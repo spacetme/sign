@@ -8,6 +8,7 @@ $link-color: #eeb;
 $input-bg: #090807;
 $input-border: #8b8685;
 $input-color: #eba;
+$glow: #59f;
 
 
 @import "bootstrap";
@@ -16,7 +17,6 @@ $input-color: #eba;
 .tabs-bar {
   $position: fixed;
   $height: 36px;
-  $glow: #59f;
   @include horizontal-list;
   height: $height + 8px;
   background: #454443;
@@ -67,6 +67,7 @@ $input-color: #eba;
     text-align: center;
     text-decoration: none;
     color: #8b8685;
+    padding-top: 3px;
   }
   .demo {
     display: block;
@@ -97,6 +98,12 @@ $input-color: #eba;
     }
     .nub {
       visibility: visible;
+    }
+  }
+  a:focus {
+    outline: none;
+    .demo {
+      box-shadow: 0 0 3px 2px $glow;
     }
   }
 }

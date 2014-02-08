@@ -1,6 +1,6 @@
 
 
-angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'goangular'])
+angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'sign.remote'])
 .controller('MainController', function($scope) {
 
   $scope.self = {
@@ -133,10 +133,10 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'go
   }
 
 })
-.config(function($goConnectionProvider) {
-  $goConnectionProvider.$set('https://goinstant.net/f296a960c64f/staticshowdown')
-})
-.controller('RemoteController', function($scope) {
+.controller('RemoteController', function($scope, remote) {
+
+  $scope.remote = remote
+  
 })
 
 

@@ -44,12 +44,24 @@ title: Flashing Sign
 
       </div>
 
+      <div ng-if="!settings">
+        <div class="setting-section" ng-if="!self.display">
+          <h2 class="text-center">&uarr; Please select a client to control &uarr;</h2>
+        </div>
+      </div>
+
       <div ng-if="!!settings">
         <ng-include src="'/templates/settings.html'"></ng-include>
         <div class="setting-section" ng-if="!self.display">
           <div class="container save-button-container">
             <button class="btn btn-primary btn-lg btn-block" ng-click="save()">Save Settings</button>
           </div>
+        </div>
+      </div>
+
+      <div class="setting-section" ng-if="!self.display">
+        <div class="container save-button-container">
+          <button class="btn btn-danger btn-lg btn-block" ng-click="remote.disconnect()">Disconnect</button>
         </div>
       </div>
 

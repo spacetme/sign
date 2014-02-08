@@ -21,7 +21,7 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
   }
 
-  $scope.main = { page: 'settings' }
+  $scope.main = { page: 'remote' }
   
   $scope.settings = $scope.self
 
@@ -136,6 +136,25 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 .controller('RemoteController', function($scope, remote) {
 
   $scope.remote = remote
+  
+})
+.controller('RemoteConnectController', function($scope) {
+
+  $scope.roomId = getInitalRoomId()
+
+  $scope.joinRoom = function() {
+    if ($scope.roomId) $scope.remote.connect($scope.roomId)
+  }
+
+  function getInitalRoomId() {
+    return getRandomRoomId()
+  }
+
+  function getRandomRoomId() {
+    var id = ''
+    for (var i = 0; i < 9; i ++) id += Math.floor(Math.random() * 10)
+    return id
+  }
   
 })
 

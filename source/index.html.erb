@@ -86,7 +86,39 @@ title: Flashing Sign
 
   </div>
   <div class="content" ng-if="main.page == 'remote'" ng-controller="RemoteController">
-    <p>Remote stuff</p>
+    <div ng-show="remote.connecting">
+      <div class="container">
+        <div class="remote-connect text-center">
+          <h2>Connecting to GoInstant...</h2>
+          <p class="text-muted">Realtime platform powered by <a href="https://goinstant.com/">GoInstant</a></p>
+        </div>
+      </div>
+    </div>
+    <div ng-show="remote.connected">
+      <div class="container">
+        <div class="remote-connect text-center">
+          <h2>Connected!</h2>
+          <p class="text-muted">What next? You ask me? I don't know!</p>
+        </div>
+      </div>
+    </div>
+    <div ng-show="!remote.connected && !remote.connecting" ng-controller="RemoteConnectController">
+      <div class="container">
+        <div class="remote-connect">
+          <p>When you joined a <em>remote</em> room,
+            you can control other flashing signs in that same room.
+            <strong>Enter a room ID to get started.</strong></p>
+          <p>
+            <input class="form-control room-id" type="text" placeholder="Room ID" ng-model="roomId">
+          </p>
+          <p>
+            <button class="btn btn-block btn-success btn-lg" ng-click="joinRoom()">Join Room</button>
+          </p>
+          <p class="text-center text-muted">If the room ID does not exists,
+            a blank room will be created for you,
+            otherwise, you will join a room with that ID.</p>
+        </div> </div>
+    </div>
   </div>
 </div>
 

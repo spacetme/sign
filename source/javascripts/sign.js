@@ -20,6 +20,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'go
     display: false,      /* true if this client is displaying */
 
   }
+
+  $scope.main = { page: 'settings' }
   
   $scope.settings = $scope.self
 
@@ -130,6 +132,11 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'go
 
   }
 
+})
+.config(function($goConnectionProvider) {
+  $goConnectionProvider.$set('https://goinstant.net/f296a960c64f/staticshowdown')
+})
+.controller('RemoteController', function($scope) {
 })
 
 

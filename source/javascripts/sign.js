@@ -147,8 +147,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
       var fg = scope.settings.colorFg
       var bg = scope.settings.colorBg
       element.css({
-        color:      flash ? fg : bg,
-        background: flash ? bg : fg
+        color:      flash ? bg : fg,
+        background: flash ? fg : bg
       })
     }
 

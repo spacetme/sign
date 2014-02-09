@@ -119,10 +119,10 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
       return $sce.trustAsHtml(info.text)
     }
 
-    scope.$watch('settings.flash', checkFlash)
-    scope.$watch('settings.flashSequence', checkFlash, true)
-    scope.$watch('settings.flashRate', checkFlash)
-    scope.$watch('settings', updateText, true)
+    scope.$watch('settings', function() {
+      updateText()
+      checkFlash()
+    }, true)
 
     function updateText() {
       $timeout.cancel(textTimeout)

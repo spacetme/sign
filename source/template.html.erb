@@ -26,87 +26,9 @@ title: Flashing Sign
     </div>
 
   </div>
+
   <div class="content" ng-if="main.page == 'remote'" ng-controller="RemoteController">
-    <div ng-if="remote.connected" ng-controller="RemoteSettingsController">
-
-      <div class="client-thumbnails">
-
-        <h2 class="text-center">Room <strong>{{remote.roomName}}</strong></h2>
-
-        <div class="container remote-instructions" ng-show="clients.length == 0">
-          <h3 ng-bind-html="clientCountText()"></h3>
-          <p ng-if="clients.count < 2">
-            In other clients, go to the <em>Remote</em> tab and join the room <strong>{{remote.roomName}}</strong>
-          </p>
-          <p ng-if="clients.count >= 2">
-            In the clients that you wish to use as a display, go to <em>Display</em> tab, then they will show up here.
-          </p>
-        </div>
-
-        <div ng-repeat="client in clients"
-            ng-class="{ 'client-thumbnail': true, 'active': target == client.id, 'displaying': client.settings.display }"
-            ng-click="edit(client)">
-          <div sign-display="client.settings" ng-style="clientPreviewSize(client)" class="client-preview-container"></div>
-          <h3 ng-show="false">{{client.id}}</h3>
-          <span class="nub-container"><span class="nub"></span></span>
-        </div>
-
-      </div>
-
-      <div ng-if="!settings">
-        <div class="setting-section">
-          <div class="container text-center">
-            <h2 class="text-center">&uarr; Please select a client to control &uarr;</h2>
-            <p class="text-muted">- or -</p>
-            <p>
-              <button class="btn btn-success btn-lg btn-block" ng-click="self.display = true">Use This Client as Display</button>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div ng-if="!!settings">
-        <ng-include src="'/templates/settings.html'"></ng-include>
-        <div class="setting-section">
-          <div class="container save-button-container">
-            <button class="btn btn-primary btn-lg btn-block" ng-click="save()">Save Settings</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="setting-section">
-        <div class="container save-button-container">
-          <button class="btn btn-danger btn-lg btn-block" ng-click="remote.disconnect()">Disconnect</button>
-        </div>
-      </div>
-
-    </div>
-    <div ng-show="remote.connecting">
-      <div class="container">
-        <div class="remote-connect text-center">
-          <h2>Connecting to GoInstant...</h2>
-          <p class="text-muted">Realtime platform powered by <a href="https://goinstant.com/">GoInstant</a></p>
-        </div>
-      </div>
-    </div>
-    <div ng-show="!remote.connected && !remote.connecting" ng-controller="RemoteConnectController">
-      <div class="container">
-        <form class="remote-connect" ng-submit="joinRoom()">
-          <p>When you joined a <em>remote</em> room,
-            you can control other flashing signs in that same room.
-            <strong>Enter a room ID to get started.</strong></p>
-          <p>
-            <input class="form-control room-id" type="text" placeholder="Room ID" ng-model="roomId">
-          </p>
-          <p>
-            <button type="submit" class="btn btn-block btn-success btn-lg">Join Room</button>
-          </p>
-          <p class="text-center text-muted">If the room ID does not exists,
-            a blank room will be created for you,
-            otherwise, you will join a room with that ID.</p>
-        </form>
-      </div>
-    </div>
+    <ng-include src="'/templates/remote.html'"></ng-include>
   </div>
 
   <div class="footer setting-section">

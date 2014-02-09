@@ -2,25 +2,30 @@
 
 /*global _, angular*/
 
-angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'sign.remote'])
+angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'sign.remote', 'sign.text'])
 .controller('MainController', function($scope, Remote) {
 
   $scope.self = {
 
-    content: 'text',     /* type: text/time */
+    content: 'time',      /* type: text/time */
     text: '<b>Flashing\nSign</b>',   /* (text) text to display */
 
-    timeMode: 'clock',   /* mode: clock/stopwatch/timer */
+    timeMode: 'clock',    /* mode: clock/stopwatch/countdown */
 
     flash: false,
     flashRate: 180,         /* display flashing rate */
     flashSequence: [1, 0],  /* the sequence of the flash pattern */
 
-    width: 1280,         /* width of display */
-    height: 720,         /* height of display */
+    width: 1280,          /* width of display */
+    height: 720,          /* height of display */
 
-    display: false,      /* true if this client is displaying */
-    remote:  false,      /* true if this client is a remote control */
+    display: false,       /* true if this client is displaying */
+    remote:  false,       /* true if this client is a remote control */
+
+    stopwatchRunning: null,   /* null: stopped, value: start time */
+    stopwatchCarry:   0,      /* the carry */
+
+    countdownTarget: null,    /* null: no countdown, value: end time */
 
   }
 
@@ -83,12 +88,7 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   }
   
 })
-.service('signText', function($sce) {
-  return function text(settings) {
-    return $sce.trustAsHtml(settings.text)
-  }
-})
-.directive('signDisplay', function($parse, signText, timer) {
+.directive('signDisplay', function($parse, signText, timer, $timeout, $sce) {
 
   return {
     link: link,
@@ -99,18 +99,28 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   function link(scope, element, attrs) {
 
     var flashTimeout = null
+    var textTimeout = null
+    var info = { text: '...' }
 
     element.on('$destroy', function() {
-      clearTimeout(flashTimeout)
+      if (flashTimeout) clearTimeout(flashTimeout)
+      if (textTimeout) $timeout.cancel(textTimeout)
     })
 
     scope.text = function() {
-      return signText(scope.settings)
+      return $sce.trustAsHtml(info.text)
     }
 
     scope.$watch('settings.flash', checkFlash)
     scope.$watch('settings.flashSequence', checkFlash, true)
     scope.$watch('settings.flashRate', checkFlash)
+    scope.$watch('settings', updateText, true)
+
+    function updateText() {
+      $timeout.cancel(textTimeout)
+      info = signText(scope.settings)
+      if (info.next != null) textTimeout = $timeout(updateText, info.next)
+    }
 
     function checkFlash() {
       var info = getFlashInfo()

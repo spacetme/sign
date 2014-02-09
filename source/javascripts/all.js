@@ -14,5 +14,6 @@
 //= require sign
 //= require sign-display
 //= require sign-time
+//= require sign-text
 //= require sign-remote
 //

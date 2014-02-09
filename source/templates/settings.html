@@ -6,9 +6,9 @@
           <li ng-class="{ active: settings.content == 'text' }"
             ><a href="javascript://spacet.me" ng-click="settings.content = 'text'"
               ><span class="demo">Text</span>Arbitary Text</a><span class="nub-container"><span class="nub"></span></span></li>
-          <!--li ng-class="{ active: settings.content == 'time' }"
+          <li ng-class="{ active: settings.content == 'time' }"
             ><a href="javascript://spacet.me" ng-click="settings.content = 'time'"
-              ><span class="demo">12:34</span>Time</a><span class="nub-container"><span class="nub"></span></span></li-->
+              ><span class="demo">12:34</span>Time</a><span class="nub-container"><span class="nub"></span></span></li>
         </ul>
         <div class="content-settings" ng-show="settings.content == 'text'">
           <div class="form-horizontal">
@@ -16,6 +16,7 @@
               <label class="control-label col-sm-3">Text to Display</label>
               <div class="col-sm-6">
                 <textarea class="form-control" ng-model="settings.text"></textarea>
+                <p class="help-block">Arbitary HTML content allowed here</p>
               </div>
             </div>
           </div>
@@ -25,9 +26,9 @@
             <div class="form-group">
               <label class="control-label col-sm-3">Mode</label>
               <div class="col-sm-9">
-                <label class="radio-inline"><input type="radio"> Clock</label>
-                <label class="radio-inline"><input type="radio"> Stopwatch</label>
-                <label class="radio-inline"><input type="radio"> Timer</label>
+                <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="clock"> Clock</label>
+                <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="stopwatch"> Stopwatch</label>
+                <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="timer"> Timer</label>
               </div>
             </div>
           </div>

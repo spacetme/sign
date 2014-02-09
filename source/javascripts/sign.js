@@ -10,8 +10,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     content: 'time',      /* type: text/time */
     text: '<b>Flashing\nSign</b>',   /* (text) text to display */
 
-    timeMode: 'clock',    /* mode: clock/stopwatch/countdown */
-    timeFormat: 'hms',    /* format: hms/ms/minutes/seconds */
+    timeMode: 'stopwatch',  /* mode: clock/stopwatch/countdown */
+    timeFormat: 'hms',      /* format: hms/ms/minutes/seconds */
 
     flash: false,
     flashRate: 180,         /* display flashing rate */
@@ -221,6 +221,23 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     }
   }
 
+})
+.directive('timeFormat', function(signTime) {
+  return {
+    templateUrl: '/templates/time-format.html',
+    scope: {
+      settings: '=settings',
+      format: '@timeFormat',
+      name: '@timeFormatName'
+    },
+    link: function(scope, element, attrs) {
+      scope.example = function() {
+        var result = signTime(scope.settings)
+        var text = signTime.format(result, scope.format)
+        return text
+      }
+    }
+  }
 })
 
 

@@ -31,6 +31,24 @@
                 <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="timer"> Timer</label>
               </div>
             </div>
+            <div ng-show="settings.timeMode == 'stopwatch'">
+              <div class="form-group">
+                <label class="control-label col-sm-3">Stopwatch</label>
+                <div class="col-sm-9">
+                  <button class="btn btn-primary">Start/Stop</button>
+                  <button class="btn btn-danger">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-3">Time Format</label>
+              <div class="col-sm-9">
+                <div class="radio" time-format="hms" time-format-name="H:MM:SS" settings="settings"></div>
+                <div class="radio" time-format="ms" time-format-name="M:SS" settings="settings"></div>
+                <div class="radio" time-format="minutes" time-format-name="Total Minutes" settings="settings"></div>
+                <div class="radio" time-format="seconds" time-format-name="Total Seconds" settings="settings"></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

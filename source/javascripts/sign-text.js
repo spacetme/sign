@@ -32,6 +32,19 @@ angular.module('sign.text', ['sign.time'])
       }
     }
   }
+  
+  signTime.localize = function(result) {
+    var time = result.time
+    if (time != null && result.local) { time -= new Date().getTimezoneOffset() * 60 * 1000 }
+    return time
+  }
+
+  signTime.format = function(result, format) {
+    var time = signTime.localize(result)
+    var display = signTime.display(time)
+    var text = signTime.text(display, format)
+    return text
+  }
 
   signTime.display = function(time) {
     if (time == null) return null
@@ -55,10 +68,10 @@ angular.module('sign.text', ['sign.time'])
       return display.minutes + ':' + t(display.seconds)
     },
     minutes: function(display) {
-      return '' + (display.hours * 60 + display.minutes)
+      return '' + (display.hours * 60 + display.minutes) % (60 * 24)
     },
     seconds: function(display) {
-      return '' + ((display.hours * 60 + display.minutes) * 60 + display.seconds)
+      return '' + ((display.hours * 60 + display.minutes) * 60 + display.seconds) % 86400
     }
   }
 
@@ -94,10 +107,7 @@ angular.module('sign.text', ['sign.time'])
     },
     time: function(settings) {
       var result = signTime(settings)
-      var time = result.time
-      if (time != null && result.local) { time -= new Date().getTimezoneOffset() * 60 * 1000 }
-      var display = signTime.display(time)
-      var text = signTime.text(display, settings.timeFormat)
+      var text = signTime.format(result, settings.timeFormat)
       return { text: text, next: result.next }
     }
   }

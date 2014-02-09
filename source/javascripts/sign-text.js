@@ -53,6 +53,15 @@ angular.module('sign.text', ['sign.time'])
   signTime.text.styles = {
     hms: function(display) {
       return display.hours + ':' + t(display.minutes) + ':' + t(display.seconds)
+    },
+    ms: function(display) {
+      return display.minutes + ':' + t(display.seconds)
+    },
+    minutes: function(display) {
+      return '' + (display.hours * 60 + display.minutes)
+    },
+    seconds: function(display) {
+      return '' + ((display.hours * 60 + display.minutes) * 60 + display.seconds)
     }
   }
 

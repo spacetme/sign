@@ -107,6 +107,9 @@ describe('sign.text', function() {
         })
       }
       format(1, 2, 3, 'hms', '1:02:03')
+      format(1, 2, 3, 'ms', '2:03')
+      format(1, 2, 3, 'minutes', '62')
+      format(1, 2, 3, 'seconds', '3723')
     })
 
   })

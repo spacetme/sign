@@ -11,3 +11,19 @@ angular.module('sign.time', [])
     }
   }
 })
+.service('stopwatch', function(timer) {
+  return {
+    startStop: function(settings) {
+      if (settings.stopwatchRunning != null) {
+        settings.stopwatchCarry += (timer.now() - settings.stopwatchRunning)
+        settings.stopwatchRunning = null
+      } else {
+        settings.stopwatchRunning = timer.now()
+      }
+    },
+    reset: function(settings) {
+      settings.stopwatchCarry = 0
+      settings.stopwatchRunning = null
+    }
+  } 
+})

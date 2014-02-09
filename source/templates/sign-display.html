@@ -1,2 +1,6 @@
 
-<div class="display" ng-class="{ flash: flash }" display scale="0.95"><span ng-bind-html="text()"></span></div>
+<div class="display" ng-class="{ flash: flash }" display scale="0.95"
+  ><span ng-style="{
+      'font-family': settings.fontFamily,
+      'font-weight': settings.fontBold ? 'bold' : 'normal'
+    }" ng-bind-html="text()"></span></div>

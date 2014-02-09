@@ -28,15 +28,30 @@
               <div class="col-sm-9">
                 <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="clock"> Clock</label>
                 <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="stopwatch"> Stopwatch</label>
-                <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="timer"> Timer</label>
+                <label class="radio-inline"><input type="radio" ng-model="settings.timeMode" value="countdown"> Countdown</label>
               </div>
             </div>
-            <div ng-show="settings.timeMode == 'stopwatch'">
+            <div ng-show="settings.timeMode == 'stopwatch'" ng-controller="StopwatchController">
               <div class="form-group">
                 <label class="control-label col-sm-3">Stopwatch</label>
                 <div class="col-sm-9">
-                  <button class="btn btn-primary">Start/Stop</button>
-                  <button class="btn btn-danger">Reset</button>
+                  <button ng-click="startStop()" class="btn btn-primary" ng-bind="settings.stopwatchRunning == null ? 'Start' : 'Stop'"></button>
+                  <button ng-click="reset()" class="btn btn-danger">Reset</button>
+                </div>
+              </div>
+            </div>
+            <div ng-show="settings.timeMode == 'countdown'" ng-controller="CountdownController">
+              <div class="form-group">
+                <label class="control-label col-sm-3">Countdown</label>
+                <div class="col-sm-3 col-md-2">
+                  <div class="input-group">
+                    <input type="text" ng-model="duration" class="form-control">
+                    <span class="input-group-addon">minutes</span>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <button ng-click="set()" class="btn btn-primary">Set Timer</button>
+                  <button ng-click="reset()" class="btn btn-danger">Reset</button>
                 </div>
               </div>
             </div>
@@ -86,7 +101,31 @@
     <div class="setting-section" ng-if="!self.display">
       <div class="container">
         <h2>Preview</h2>
-        <div title="Click to save!" sign-display="settings" ng-click="save()" ng-style="previewSize(settings)" class="preview-container"></div>
+        <div title="Click to save" sign-display="settings" ng-click="save()" ng-style="previewSize(settings)" class="preview-container"></div>
+      </div>
+    </div>
+
+    <div class="setting-section" ng-if="!self.display">
+      <div class="container">
+        <h2>Appearance</h2>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-3">Font Family</label>
+            <div class="col-sm-4">
+              <input class="form-control" ng-model="settings.fontFamily">
+            </div>
+            <div class="col-sm-5">
+              <div class="btn-group">
+                <button type="button" ng-class="{
+                    btn: true,
+                    'btn-default': true,
+                    active: settings.fontBold
+                  }"
+                  ng-click="settings.fontBold = !settings.fontBold">Bold</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

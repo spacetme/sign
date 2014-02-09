@@ -7,13 +7,13 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
   $scope.self = {
 
-    content: 'time',      /* type: text/time */
-    text: '<b>Flashing\nSign</b>',   /* (text) text to display */
+    content: 'text',          /* type: text/time */
+    text: 'Flashing\nSign',   /* (text) text to display */
 
-    timeMode: 'stopwatch',  /* mode: clock/stopwatch/countdown */
+    timeMode: 'clock',      /* mode: clock/stopwatch/countdown */
     timeFormat: 'hms',      /* format: hms/ms/minutes/seconds */
 
-    flash: false,
+    flash: true,
     flashRate: 180,         /* display flashing rate */
     flashSequence: [1, 0],  /* the sequence of the flash pattern */
 
@@ -27,6 +27,9 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     stopwatchCarry:   0,      /* the carry */
 
     countdownTarget: null,    /* null: no countdown, value: end time */
+
+    fontFamily: 'Helvetica',
+    fontBold:   true,
 
   }
 
@@ -237,6 +240,23 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
         return text
       }
     }
+  }
+})
+.controller('StopwatchController', function($scope, stopwatch) {
+  $scope.startStop = function() {
+    stopwatch.startStop($scope.settings)
+  }
+  $scope.reset = function() {
+    stopwatch.reset($scope.settings)
+  }
+})
+.controller('CountdownController', function($scope, timer) {
+  $scope.duration = 25
+  $scope.set = function() {
+    $scope.settings.countdownTarget = timer.now() + $scope.duration * 60 * 1000
+  }
+  $scope.reset = function() {
+    $scope.settings.countdownTarget = null
   }
 })
 

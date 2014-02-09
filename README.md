@@ -49,14 +49,14 @@ The goal is to create a full-featured flashing sign.
 
 This is what I have in plan, and I don't know whether I'll be able to finish all of them:
 
-* Can work on Laptops (big screens!) and on tablets (will be test on an iPad).
-* Can work offline.
-* When online, can be remotely controlled
-  (for example, putting on a score sign in a live sport game).
-* Flashing can be turned on and off, speed of flashing can be customized.
-* Color and font can be customized.
-* In addition to displaying text,
-  should be able to display the time (clock, stopwatch, timer).
+* [X] Can work on Laptops (big screens!) and on tablets (will be test on an iPad).
+* [X] Can work offline.
+* [X] When online, can be remotely controlled
+      (for example, putting on a score sign in a live sport game).
+* [X] Flashing can be turned on and off, speed of flashing can be customized.
+* [ ] Color and font can be customized.
+* [ ] In addition to displaying text,
+      should be able to display the time (clock, stopwatch, timer).
 
 
 

@@ -14,6 +14,13 @@ title: Flashing Sign
     <li><a href="javascript://" ng-click="self.display = true">Display</a></li>
     <li ng-class="{ active: main.page == 'remote' }"><a href="javascript://" ng-click="main.page = 'remote'">Remote<span class="room-info" ng-if="remote.connected"> [{{remote.roomName}}]</span></a></li>
   </ul>
+
+  <div ng-controller="ErrorsController">
+    <error-dialog ng-repeat="error in errors" on-close="close(error)">
+      {{error.message}}
+    </error-dialog>
+  </div>
+  
   <div class="content" ng-controller="SettingsController" ng-if="main.page == 'settings'">
 
     <ng-include src="'/templates/settings.html'"></ng-include>

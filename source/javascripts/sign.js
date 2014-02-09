@@ -35,6 +35,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
   }
 
+  $scope.errors = [ ]
+
   $scope.remote = new Remote($scope, 'self')
 
   $scope.$watch('main.page == "remote" && !self.display', function(value) {
@@ -203,7 +205,12 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   $scope.roomId = getInitalRoomId()
 
   $scope.joinRoom = function() {
-    if ($scope.roomId) $scope.remote.connect($scope.roomId)
+    if ($scope.roomId) {
+      $scope.remote.connect($scope.roomId)
+        .catch(function(e) {
+          $scope.errors.push(new Error('Cannot connect to GoInstant!'))
+        })
+    }
   }
 
   function getInitalRoomId() {
@@ -268,6 +275,22 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
   }
   $scope.reset = function() {
     $scope.settings.countdownTarget = null
+  }
+})
+.directive('errorDialog', function() {
+  // from http://docs.angularjs.org/guide/directive
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      'close': '&onClose'
+    },
+    templateUrl: '/templates/my-dialog-close.html'
+  }
+})
+.controller('ErrorsController', function($scope) {
+  $scope.close = function(error) {
+    $scope.errors.splice($scope.errors.indexOf(error), 1)
   }
 })
 

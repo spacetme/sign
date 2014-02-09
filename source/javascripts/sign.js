@@ -30,6 +30,8 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
     fontFamily: 'Helvetica',
     fontBold:   true,
+    colorFg:    'white',
+    colorBg:    'black',
 
   }
 
@@ -131,12 +133,21 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
       clearTimeout(flashTimeout)
       if (info.next) {
         flashTimeout = setTimeout(function() {
-          element.toggleClass('flashing', !info.flashing)
+          setFlash(!info.flashing)
           checkFlash()
         }, info.next)
       } else {
-        element.toggleClass('flashing', !!info.flashing)
+        setFlash(!!info.flashing)
       }
+    }
+
+    function setFlash(flash) {
+      var fg = scope.settings.colorFg
+      var bg = scope.settings.colorBg
+      element.css({
+        color:      flash ? fg : bg,
+        background: flash ? bg : fg
+      })
     }
 
     function getFlashInfo() {

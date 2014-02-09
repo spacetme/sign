@@ -54,8 +54,8 @@ This is what I have in plan, and I don't know whether I'll be able to finish all
 * [X] When online, can be remotely controlled
       (for example, putting on a score sign in a live sport game).
 * [X] Flashing can be turned on and off, speed of flashing can be customized.
-* [ ] Color and font can be customized.
-* [ ] In addition to displaying text,
+* [X] Color and font can be customized.
+* [X] In addition to displaying text,
       should be able to display the time (clock, stopwatch, timer).
 
 

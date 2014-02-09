@@ -66,7 +66,7 @@
 <div ng-show="!remote.connected && !remote.connecting" ng-controller="RemoteConnectController">
   <div class="container">
     <form class="remote-connect" ng-submit="joinRoom()">
-      <p>When you joined a <em>remote</em> room,
+      <p>When you join a <em>remote</em> room,
         you can control other flashing signs in that same room.
         <strong>Enter a room ID to get started.</strong></p>
       <p>
@@ -78,6 +78,7 @@
       <p class="text-center text-muted">If the room ID does not exists,
         a blank room will be created for you,
         otherwise, you will join a room with that ID.</p>
+      <p class="text-center text-muted">Remote capabilities powered by <a href="https://goinstant.com/">GoInstant</a></p>
     </form>
   </div>
 </div>

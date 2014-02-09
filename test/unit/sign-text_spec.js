@@ -88,6 +88,12 @@ describe('sign.text', function() {
       })
     })
 
+    describe('unknown modes', function() {
+      it('should not throw', function() {
+        signTime({ timeMode: 'tnarset' })
+      })
+    })
+
     describe('display', function() {
       it('return hours, minutes, seconds', function() {
         var result = signTime.display(86400 * 1000 * 2 + 3600 * 1000 * 18 + 60 * 1000 * 7 + 1234)
@@ -110,6 +116,12 @@ describe('sign.text', function() {
       format(1, 2, 3, 'ms', '2:03')
       format(1, 2, 3, 'minutes', '62')
       format(1, 2, 3, 'seconds', '3723')
+      it('should return a dash for null', function() {
+        expect(signTime.text(null, 'wtf')).toEqual('-')
+      })
+      it('should not throw on invalid style', function() {
+        signTime.text({ hours: 1, minutes: 2, seconds: 3 }, 'tnarset')
+      })
     })
 
   })

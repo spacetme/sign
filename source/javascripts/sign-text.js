@@ -3,7 +3,7 @@ angular.module('sign.text', ['sign.time'])
 .service('signTime', function(timer) {
 
   function signTime(settings) {
-    return signTime.modes[settings.timeMode](settings)
+    return (signTime.modes[settings.timeMode] || unknownTimeMode)(settings)
   }
 
   signTime.modes = {
@@ -43,11 +43,8 @@ angular.module('sign.text', ['sign.time'])
   }
 
   signTime.text = function(display, style) {
-    return signTime.text.styles[style](display)
-  }
-
-  function t(x) {
-    return (x < 10 ? '0' : '') + x
+    if (display == null) return '-'
+    return (signTime.text.styles[style] || unknownTextStyle)(display)
   }
 
   signTime.text.styles = {
@@ -66,6 +63,19 @@ angular.module('sign.text', ['sign.time'])
   }
 
   return signTime
+
+  function unknownTimeMode() {
+    var ended = { time: null, next: null, local: false }
+    return ended
+  }
+
+  function unknownTextStyle() {
+    return 'Unknown style!'
+  }
+
+  function t(x) {
+    return (x < 10 ? '0' : '') + x
+  }
 
 })
 .service('signText', function(signTime) {

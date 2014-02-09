@@ -11,6 +11,7 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
     text: '<b>Flashing\nSign</b>',   /* (text) text to display */
 
     timeMode: 'clock',    /* mode: clock/stopwatch/countdown */
+    timeFormat: 'hms',    /* format: hms/ms/minutes/seconds */
 
     flash: false,
     flashRate: 180,         /* display flashing rate */

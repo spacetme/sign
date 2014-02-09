@@ -94,7 +94,11 @@ angular.module('sign.text', ['sign.time'])
     },
     time: function(settings) {
       var result = signTime(settings)
-      return { text: '' + result, next: result.next }
+      var time = result.time
+      if (time != null && result.local) { time -= new Date().getTimezoneOffset() * 60 * 1000 }
+      var display = signTime.display(time)
+      var text = signTime.text(display, settings.timeFormat)
+      return { text: text, next: result.next }
     }
   }
 

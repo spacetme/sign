@@ -52,6 +52,11 @@ angular.module('sign', ['ui.slider', 'sign.display', 'sign.time', 'ngTouch', 'si
 
 })
 .controller('SettingsController', function($scope) {
+
+  $scope.save = function() {
+    $scope.settings.display = true
+  }
+
 })
 .directive('onWindowResize', function($parse) {
   

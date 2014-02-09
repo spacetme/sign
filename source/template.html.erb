@@ -18,11 +18,20 @@ title: Flashing Sign
 
     <ng-include src="'/templates/settings.html'"></ng-include>
 
+    <div class="setting-section">
+      <div class="container save-button-container">
+        <button class="btn btn-primary btn-lg btn-block" ng-click="save()">Display It Now</button>
+        <div class="text-center text-muted nudge">click anywhere to exit</div>
+      </div>
+    </div>
+
   </div>
   <div class="content" ng-if="main.page == 'remote'" ng-controller="RemoteController">
     <div ng-if="remote.connected" ng-controller="RemoteSettingsController">
 
       <div class="client-thumbnails">
+
+        <h2 class="text-center">Room <strong>{{remote.roomName}}</strong></h2>
 
         <div class="container remote-instructions" ng-show="clients.length == 0">
           <h3 ng-bind-html="clientCountText()"></h3>
@@ -45,21 +54,27 @@ title: Flashing Sign
       </div>
 
       <div ng-if="!settings">
-        <div class="setting-section" ng-if="!self.display">
-          <h2 class="text-center">&uarr; Please select a client to control &uarr;</h2>
+        <div class="setting-section">
+          <div class="container text-center">
+            <h2 class="text-center">&uarr; Please select a client to control &uarr;</h2>
+            <p class="text-muted">- or -</p>
+            <p>
+              <button class="btn btn-success btn-lg btn-block" ng-click="self.display = true">Use This Client as Display</button>
+            </p>
+          </div>
         </div>
       </div>
 
       <div ng-if="!!settings">
         <ng-include src="'/templates/settings.html'"></ng-include>
-        <div class="setting-section" ng-if="!self.display">
+        <div class="setting-section">
           <div class="container save-button-container">
             <button class="btn btn-primary btn-lg btn-block" ng-click="save()">Save Settings</button>
           </div>
         </div>
       </div>
 
-      <div class="setting-section" ng-if="!self.display">
+      <div class="setting-section">
         <div class="container save-button-container">
           <button class="btn btn-danger btn-lg btn-block" ng-click="remote.disconnect()">Disconnect</button>
         </div>

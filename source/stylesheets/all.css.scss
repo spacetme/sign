@@ -203,8 +203,17 @@ input.room-id {
 
 .client-thumbnails {
   background: #252423 linear-gradient($body-bg, #353433);
-  padding: 24px 12px 0;
+  padding: 8px 12px 0;
   text-align: center;
+  h2 {
+    margin: 0 0 1em;
+    font-size: 14px;
+    color: #9b9695;
+    font-weight: normal;
+    strong {
+      color: #bbb6b5;
+    }
+  }
 }
 
 .client-preview-container {
@@ -264,3 +273,12 @@ input.room-id {
   padding-top: 1em;
 }
 
+.nudge {
+  padding-top: 0.8em;
+}
+
+@media (max-width: 479px) {
+  .room-info {
+    display: none;
+  }
+}
